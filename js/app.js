@@ -1,5 +1,6 @@
 const elements = document.querySelectorAll(".btn")
 const elementsArr = Array.from(elements)
+const btnBotton = document.querySelectorAll(".botton")
 const desc = document.getElementById("desc")
 
 const txtList = [
@@ -33,24 +34,48 @@ const txtList = [
 
 ]
 
+function removeAtc() {
 
+    elements.forEach(btn =>
 
-elementsArr.forEach(element => {
-    const data = element.dataset.number
+        btn.classList.remove("act"))
 
+}
 
-    // console.log(data);
-    element.addEventListener("click", () => {
-
+elementsArr.forEach((element, index) => {
+    let data = parseInt(element.dataset.number)
+    //  inserta la descrip
+    function machElement() {
         txtList.forEach(ele => {
+            (data === ele.id) ? desc.innerHTML = ele.texto : "";
 
-            if (data == ele.id) {
-                desc.style.display = "block"
-                desc.innerHTML = ele.texto
-                console.log(ele.texto);
+        })
+    }
+
+    btnBotton.forEach(function (ele, i) {
+        element.addEventListener("click", function () {
+            machElement()
+            removeAtc()
+
+            if (index < 6) {
+                btnBotton[index].classList.add("act")
             }
         })
-
-
+        ele.addEventListener("click", function () {
+            btnBotton[i].classList.add("act")
+        })
     })
+
+
 })
+
+
+// $dots.forEach(($dot, index) => {
+
+//     $dot.addEventListener('click', function () {
+//         // click en los botones de abajo
+//         document.queryselector(.altDot[data - index= "${index}"]).click();
+
+//     })
+// })
+

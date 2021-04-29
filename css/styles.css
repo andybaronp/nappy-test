@@ -127,6 +127,7 @@ p {
   text-align: center;
   padding: 0.3rem;
 }
+/* 
 .btn:nth-child(2) {
   top: 20%;
   right: 12%;
@@ -152,7 +153,35 @@ p {
 .btn:nth-child(7) {
   top: 73%;
   right: 45%;
+} */
+
+/* .btn:nth-child(2) {
+  top: 0%;
+  right: 10%;
 }
+.btn:nth-child(3) {
+  top: 0%;
+  right: 20%;
+}
+
+.btn:nth-child(4) {
+  top: 0%;
+  right: 30%;
+}
+.btn:nth-child(5) {
+  top: 10%;
+  right: 10%;
+}
+
+.btn:nth-child(6) {
+  top: 10%;
+  right: 20%;
+}
+.btn:nth-child(7) {
+  top: 10%;
+  right: 30%;
+} */
+
 .btn-botton {
   display: flex;
   justify-content: center;

@@ -1,38 +1,10 @@
+const ups = document.querySelectorAll(".up")
 const elements = document.querySelectorAll(".btn")
 const elementsArr = Array.from(elements)
+const btnUP = Array.from(ups)
+
 const btnBotton = document.querySelectorAll(".botton")
 const desc = document.getElementById("desc")
-
-const txtList = [
-
-
-    {
-        id: 1, texto: `
-    <h3>TITULO DEL 1 </h3>
-    <p>Allen Roberts es un adolescente que tiene que lidiar con ciertos problemas ya que.</p>` },
-    {
-        id: 2, texto: `
-    <h3>TITULO DEL 2 </h3>
-    <p>tiene dos padres que son famosos y por si fuera poco, ambos padres </p>` },
-    {
-        id: 3, texto: `
-    <h3>TITULO DEL 3</h3>
-    <p> son del mismo sexo. No es nada fácil para él así que tiene que buscar</p>` },
-    {
-        id: 4, texto: `
-    <h3>TITULO DEL 4</h3>
-    <p> son del mismo sexo. No es nada fácil para él así que tiene que buscar</p>` },
-    {
-        id: 5, texto: `
-    <h3>TITULO DEL 5</h3>
-    <p>¿Tener dos padres del mismo sexo es fácil? Claro, tengo la vida más...</p>` },
-    {
-        id: 6, texto: `
-    <h3>TITULO DEL -6 -</h3>
-    <p>Fin de la hiztoria Gay</p>` },
-
-
-]
 
 function removeAtc() {
 
@@ -42,26 +14,100 @@ function removeAtc() {
 
 }
 
-elementsArr.forEach((element, index) => {
-    let data = parseInt(element.dataset.number)
-    //  inserta la descrip
-    function machElement() {
-        txtList.forEach(ele => {
-            (data === ele.id) ? desc.innerHTML = ele.texto : "";
+const machElement = () => {
 
+    fetch("data.json")
+        .then(res => res.json())
+        .then(data => {
+
+            const src = data[0].main.src
+            const dots = data[0].dots
+            document.getElementById("img").setAttribute("src", src);
+
+
+            btnUP.forEach((ele, i) => {
+                ele.dataset.number = 1 + i
+                ele.style.top = `${dots[i].lat}%`
+                ele.style.right = `${dots[i].lon}%`
+                // let title = dots[i].content.title
+                // let content = dots[i].content.content
+
+            })
         })
-    }
+
+
+    // if (dots[i].id == ele.dataset.number) {
+    //     console.log("object");
+    //     let html = `
+    //     <h2> ${title}</h2>
+    //     <p>${content} </p>
+    //     `
+    //     const div = document.createElement('div');
+    //     div.innerHTML = html;
+    //     desc.append(div)
+    // }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// const machElement = async () => {
+
+//     try {
+//         const res = await fetch("data.json")
+//         const data = await res.json()
+//         const src = data[0].main.src
+//         const dots = data[0].dots
+//         document.getElementById("img").setAttribute("src", src);
+
+
+//         btnUP.forEach((ele, i) => {
+//             ele.dataset.number = 1 + i
+//             ele.style.top = `${dots[i].lat}%`
+//             ele.style.right = `${dots[i].lon}%`
+//             let title = dots[i].content.title
+//             let content = dots[i].content.content
+
+//         })
+
+//         // let html = `
+//         // <h2> ${title}</h2>
+//         // <p>${content} </p>
+//         // `
+//         // const div = document.createElement('div');
+//         // div.innerHTML = html;
+//         // desc.append(div)
+
+
+//     }
+
+//     catch (error) {
+//         console.log(error);
+//     }
+
+// }
+
+
+elementsArr.forEach((element, index) => {
 
     btnBotton.forEach(function (ele, i) {
-        element.addEventListener("click", function () {
-            machElement()
-            removeAtc()
+        element.addEventListener("click", function (e) {
 
+            removeAtc()
             if (index < 6) {
                 btnBotton[index].classList.add("act")
             }
         })
-        ele.addEventListener("click", function () {
+        ele.addEventListener("click", function (e) {
+            removeAtc()
             btnBotton[i].classList.add("act")
         })
     })
@@ -70,12 +116,4 @@ elementsArr.forEach((element, index) => {
 })
 
 
-// $dots.forEach(($dot, index) => {
-
-//     $dot.addEventListener('click', function () {
-//         // click en los botones de abajo
-//         document.queryselector(.altDot[data - index= "${index}"]).click();
-
-//     })
-// })
-
+addEventListener("DOMContentLoaded", machElement)

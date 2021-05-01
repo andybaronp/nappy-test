@@ -13,17 +13,21 @@ async function createImage({ src, alt }) {
   return stringToHTML(template);
 }
 async function createFloatingDots(dots) {
-  let template = dots.map(({ id, lat, lon }) => {
+  let template = dots.map(({ id, lat, lon }, index) => {
     return stringToHTML(
-      `<div class="btn up" style="top:${lat}%;left:${lon}%">${id}</div>`
+      `<div class="btn up ${
+        index === 0 ? `act` : ""
+      }" style="top:${lat}%;left:${lon}%" data-number="${id}">${id}</div>`
     );
   });
   return template;
 }
 async function createNavigationDots(dots) {
-  let template = dots.map(({ id }) => {
+  let template = dots.map(({ id }, index) => {
     return stringToHTML(
-      `<div class="btn botton" data-number="${id}">${id}</div>`
+      `<div class="btn botton ${
+        index === 0 ? `act` : ""
+      }" data-number="${id}">${id}</div>`
     );
   });
   return template;
@@ -37,6 +41,14 @@ async function createContent(dots) {
     </div>`);
   });
   return template;
+}
+function handleClick(dot, dotsArray, altDotsArray) {
+  let index = parseInt(dot.dataset.number) - 1;
+  dot.classList.add("act");
+  altDotsArray[index].click();
+  dotsArray
+    .filter((element) => element.dataset.number !== dot.dataset.number)
+    .map((element) => element.classList.remove("act"));
 }
 window.addEventListener("DOMContentLoaded", async function () {
   const $imageWrapper = document.getElementById("image-wrapper");
@@ -53,4 +65,15 @@ window.addEventListener("DOMContentLoaded", async function () {
   $imageWrapper.append(...floatingDots);
   $buttons.append(...buttons);
   $desc.append(...content);
+
+  floatingDots.forEach(($dot) => {
+    $dot.addEventListener("click", () =>
+      handleClick($dot, floatingDots, buttons)
+    );
+  });
+  buttons.forEach(($dot) => {
+    $dot.addEventListener("click", () =>
+      handleClick($dot, buttons, floatingDots)
+    );
+  });
 });

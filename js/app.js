@@ -44,6 +44,12 @@ async function createContent(dots) {
   });
   return template;
 }
+function loopElements(dot, buttons, floatingDots, content) {
+  dot.addEventListener("click", () => {
+    handleClick(dot, buttons, floatingDots);
+    showInfo(dot, content);
+  });
+}
 function handleClick(dot, dotsArray, altDotsArray) {
   let index = parseInt(dot.dataset.number) - 1;
   dot.classList.add("act");
@@ -59,6 +65,7 @@ function showInfo(dot, content) {
     .filter((element) => element.dataset.number !== dot.dataset.number)
     .map((element) => element.classList.add("hide"));
 }
+
 window.addEventListener("DOMContentLoaded", async function () {
   const $imageWrapper = document.getElementById("image-wrapper");
   const $buttons = document.getElementById("buttons");
@@ -75,16 +82,8 @@ window.addEventListener("DOMContentLoaded", async function () {
   $buttons.append(...buttons);
   $desc.append(...content);
 
-  floatingDots.forEach(($dot) => {
-    $dot.addEventListener("click", () => {
-      handleClick($dot, floatingDots, buttons);
-      showInfo($dot, content);
-    });
-  });
-  buttons.forEach(($dot) => {
-    $dot.addEventListener("click", () => {
-      handleClick($dot, buttons, floatingDots);
-      showInfo($dot, content);
-    });
-  });
+  floatingDots.forEach((dot) =>
+    loopElements(dot, floatingDots, buttons, content)
+  );
+  buttons.forEach((dot) => loopElements(dot, buttons, floatingDots, content));
 });

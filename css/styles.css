@@ -206,3 +206,6 @@ p {
   border-radius: 15px;
   font-size: 2rem;
 }
+.hide {
+  display: none;
+}
